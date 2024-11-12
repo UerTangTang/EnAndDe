@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Base64编码示例</title>
+  </head>
+  <body>
+    <form id="myForm">
+      <label for="userInput">输入文本：</label>
+      <input type="text" id="userInput" name="userInput" required />
+      <button type="button" onclick="encodeAndSend()">提交</button>
+    </form>
+
+    <!-- 添加用于显示服务端返回的数据的元素 -->
+    <div id="responseDataContainer"></div>
+
+    <script>
+      function encodeAndSend() {
+        var userInput = document.getElementById("userInput").value;
+        var encodedData = btoa(userInput);
+
+        var jsonData = {
+          encodedData: encodedData,
+        };
+
+        fetch("1.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(jsonData),
+        })
+          .then((response) => response.text()) // 修改部分：使用 response.text() 获取字符串
+          .then((data) => {
+            // 修改部分：将服务端返回的字符串显示在页面上
+            var responseDataContainer = document.getElementById(
+              "responseDataContainer"
+            );
+            responseDataContainer.innerHTML = "服务端返回的数据： " + data;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+    </script>
+  </body>
+</html>
