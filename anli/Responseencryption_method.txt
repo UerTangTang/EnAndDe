@@ -1,0 +1,10 @@
+import json
+import base64
+def Responseencryption_data(flow):
+    # 解析响应内容为JSON
+    response_data = json.loads(flow.response.content.decode('utf-8'))
+    # 检查是否存在需要重新编码的字段
+    if 'reencodedData' in response_data:
+        reencoded_data = response_data['reencodedData'] 
+        # 将字段内容编码为Base64
+        encoded_reencoded_data = base64.b64encode(reencoded_data.encode()).decode('utf-8')

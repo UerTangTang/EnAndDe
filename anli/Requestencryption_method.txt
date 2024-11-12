@@ -1,0 +1,7 @@
+import json
+import base64
+def Requestencryption_data(flow):
+    response_data = json.loads(flow.request.content.decode('utf-8'))
+    if 'encodedData' in response_data:
+        decoded_data = response_data['encodedData']
+        encoded_data = base64.b64encode(decoded_data.encode()).decode('utf-8')

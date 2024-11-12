@@ -1,0 +1,12 @@
+import json
+import base64
+def Requestdecryption_data(flow):
+    try:
+        request_data = json.loads(flow.request.content.decode('utf-8'))
+        encoded_data = request_data.get('encodedData')
+        if encoded_data:
+            decoded_data = base64.b64decode(encoded_data.encode()).decode('utf-8')
+            request_data['encodedData'] = decoded_data
+            flow.request.content = json.dumps(request_data).encode('utf-8')
+    except Exception as e:
+        print(e)
