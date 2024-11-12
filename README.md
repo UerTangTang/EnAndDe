@@ -4,7 +4,7 @@
 
 # 使用前提，附安装教程和案例教程
 
-点我查看使用教程和案例教程
+<a href="http://120.24.187.185:8090/archives/burpzhua-bao-fang-bao-jia-jie-mi">点我查看使用教程和案例教程</a>
 
 #正式使用
 
