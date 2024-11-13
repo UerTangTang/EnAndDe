@@ -2,6 +2,9 @@ import subprocess
 import tkinter as tk
 from tkinter import messagebox, scrolledtext
 import threading
+import socket
+import os
+import queue
 
 class EnAndDeProxyApp:
     def __init__(self, root):
@@ -11,7 +14,8 @@ class EnAndDeProxyApp:
         self.position_window()
         self.create_widgets()
         self.load_config()
-
+         # 用于线程间通信的队列
+        self.port_check_result_queue = queue.Queue()
     #中间
     def position_window(self):
         screen_width = self.root.winfo_screenwidth()
@@ -98,27 +102,40 @@ class EnAndDeProxyApp:
         
         
         # Text小部件
-        tk.Label(self.root, text="Requestencryption_data请求包解密方法",font=8).grid(row=3, column=0, padx=10, pady=10, sticky='e')
+        tk.Label(self.root, text="Requestdecryption_data请求包解密方法",font=8).grid(row=3, column=0, padx=10, pady=10, sticky='e')
         self.text_box1 = scrolledtext.ScrolledText(self.root, width=50, height=10, wrap=tk.WORD)
         self.text_box1.grid(row=4, column=0, padx=10, pady=10, sticky='nsew')
 
-        tk.Label(self.root, text="Requestdecryption_data请求包加密方法",font=8).grid(row=3, column=1, padx=10, pady=10, sticky='e')
+        tk.Label(self.root, text="Requestencryption_data请求包加密方法",font=8).grid(row=3, column=1, padx=10, pady=10, sticky='e')
         self.text_box2 = scrolledtext.ScrolledText(self.root, width=50, height=10, wrap=tk.WORD)
         self.text_box2.grid(row=4, column=1, padx=10, pady=10, sticky='nsew')
         
         # Text小部件
-        tk.Label(self.root, text="Responseencryption_data响应包加密方法",font=8).grid(row=5, column=0, padx=10, pady=10, sticky='e')
+        tk.Label(self.root, text="Responsedecryption_data响应包加密方法",font=8).grid(row=5, column=0, padx=10, pady=10, sticky='e')
         self.text_box3 = scrolledtext.ScrolledText(self.root, width=50, height=10, wrap=tk.WORD)
         self.text_box3.grid(row=6, column=0, padx=10, pady=10, sticky='nsew')
 
-        tk.Label(self.root, text="Responsedecryption_data响应包解密方法",font=8).grid(row=5, column=1, padx=10, pady=10, sticky='e')
+        tk.Label(self.root, text="Responseencryption_data响应包解密方法",font=8).grid(row=5, column=1, padx=10, pady=10, sticky='e')
         self.text_box4 = scrolledtext.ScrolledText(self.root, width=50, height=10, wrap=tk.WORD)
         self.text_box4.grid(row=6, column=1, padx=10, pady=10, sticky='nsew')
-
+        
+        # 读取文件内容并显示在文本框中
+        self.load_file_content("Requestdecryption_method.txt", self.text_box1)
+        self.load_file_content("Requestencryption_method.txt", self.text_box2)
+        self.load_file_content("Responsedecryption_method.txt", self.text_box3)
+        self.load_file_content("Responseencryption_method.txt", self.text_box4)
+        
         # 启动按钮
         self.start_button = tk.Button(self.root, text="一键启动", command=self.handle_save_and_start)
         self.start_button.grid(row=7, column=0, columnspan=2, pady=20, sticky='nsew')
     
+    def load_file_content(self, file_path, text_widget):
+        """读取文件内容并显示在文本框中，如果文件不存在则创建空文件（可选）"""
+        if os.path.exists(file_path):
+            with open(file_path, 'r', encoding='utf-8') as file:
+                content = file.read()
+                text_widget.delete(1.0, tk.END)  # 清空文本框
+                text_widget.insert(tk.END, content)
     #先保存加解密方法再启动
     def handle_save_and_start(self):
         # 假设我们有两个标志变量来跟踪保存是否成功
@@ -127,29 +144,29 @@ class EnAndDeProxyApp:
         Responseencrypt_save_success = False
         Responsedecrypt_save_success = False
  
-        # 请求加密方法
+        # 请求解密方法
         try:
-            self.save_file_content("Requestencryption_method.txt", self.text_box1)
+            self.save_file_content("Requestdecryption_method.txt", self.text_box1)
             Requestencrypt_save_success = True  # 假设如果没有抛出异常，则保存成功
         except Exception as e:
             messagebox.showerror("保存加密方法失败", f"无法保存加密方法: {e}")
  
-        # 请求解密方法
+        # 请求加密方法
         try:
-            self.save_file_content("Requestdecryption_method.txt", self.text_box2)
+            self.save_file_content("Requestencryption_method.txt", self.text_box2)
             Requestdecrypt_save_success = True  # 假设如果没有抛出异常，则保存成功
         except Exception as e:
             messagebox.showerror("保存解密方法失败", f"无法保存解密方法: {e}")
         
-        # 响应加密方法
+        # 响应解密方法
         try:
-            self.save_file_content("Responseencryption_method.txt", self.text_box3)
+            self.save_file_content("Responsedecryption_method.txt", self.text_box3)
             Responseencrypt_save_success = True  # 假设如果没有抛出异常，则保存成功
         except Exception as e:
             messagebox.showerror("保存加密方法失败", f"无法保存加密方法: {e}")
-        # 响应解密方法
+        # 响应加密方法
         try:
-            self.save_file_content("Responsedecryption_method.txt", self.text_box4)
+            self.save_file_content("Responseencryption_method.txt", self.text_box4)
             Responsedecrypt_save_success = True  # 假设如果没有抛出异常，则保存成功
         except Exception as e:
             messagebox.showerror("保存加密方法失败", f"无法保存加密方法: {e}")
@@ -168,15 +185,15 @@ class EnAndDeProxyApp:
             burp_port = self.validate_port(self.burp_port_var.get())
 
             # 启动代理线程
-            threading.Thread(target=self.start_dec_thread, args=(port1, port2, ip, target_port)).start()
-            threading.Thread(target=self.start_enc_thread, args=(burp_port, ip, target_port)).start()
-
+            threading.Thread(target=self.start_dec_thread, args=(port1, port2, ip, target_port), daemon=True).start()
+            threading.Thread(target=self.start_enc_thread, args=(burp_port, ip, target_port), daemon=True).start()
+            
             messagebox.showinfo("成功", "EnAndDe 启动成功！")
         except ValueError as e:
             messagebox.showerror("输入错误", str(e))
         except Exception as e:
             messagebox.showerror("错误", f"发生了一个错误: {e}")
-
+    
     def start_dec_thread(self, port, burp_port, ip, target_port):
         data = f"{ip}:{target_port}"
         with open('data.txt', 'w') as file:
