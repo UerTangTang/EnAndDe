@@ -15,7 +15,7 @@
 
 # 正式使用
 
-启动start.py文件即可：python start.py
+启动start.py文件即可：<code>python start.py</code>
 但是，在
 ![image](https://github.com/user-attachments/assets/591e2fdf-69b9-4b02-81fe-f057a6e6480e)
 
