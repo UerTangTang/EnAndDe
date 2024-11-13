@@ -6,9 +6,15 @@
 
 <a href="http://120.24.187.185:8090/archives/burpzhua-bao-fang-bao-jia-jie-mi">点我查看使用教程和案例教程</a>
 
-#正式使用
+# 使用前
+![image](https://github.com/user-attachments/assets/44d90142-eefa-43ec-ae99-abe736d96969)
+# 使用后
+![image](https://github.com/user-attachments/assets/21c1d760-0896-458c-a18d-76a0f4c2e67d)
+
+# 注意事项
 
 启动start.py文件即可：python start.py
+但是，在
 ![image](https://github.com/user-attachments/assets/f1c0094b-32e9-4426-89aa-fe5c9c108091)
 
 
