@@ -5,3 +5,4 @@ def Requestencryption_data(flow):
     if 'encodedData' in response_data:
         decoded_data = response_data['encodedData']
         encoded_data = base64.b64encode(decoded_data.encode()).decode('utf-8')
+        flow.request.content=encoded_data
