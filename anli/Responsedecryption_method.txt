@@ -7,7 +7,6 @@ def Responsedecryption_data(flow):
         rep=json.loads(resdata)
         data=base64.b64decode(rep["reencodedData"].encode()).decode()
         rep["reencodedData"]=data
-        reqdata=json.dumps(rep)
-        flow.response.set_text(reqdata)
+        flow.response.set_text(json.dumps(rep))
     else:
         return
