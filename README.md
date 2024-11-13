@@ -8,14 +8,14 @@
 
 <a href="http://120.24.187.185:8090/archives/burpzhua-bao-fang-bao-jia-jie-mi">点我查看使用教程和案例教程</a>
 
+启动start.py文件即可：<code>python start.py</code>
+
 # 使用前
 ![image](https://github.com/user-attachments/assets/44d90142-eefa-43ec-ae99-abe736d96969)
 # 使用后
 ![image](https://github.com/user-attachments/assets/21c1d760-0896-458c-a18d-76a0f4c2e67d)
 
 # 正式使用
-
-启动start.py文件即可：<code>python start.py</code>
 
 ![image](https://github.com/user-attachments/assets/591e2fdf-69b9-4b02-81fe-f057a6e6480e)
 
