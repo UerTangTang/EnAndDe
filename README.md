@@ -6,7 +6,7 @@
 
 # 使用前提，附安装教程和案例教程
 
-<a href="http://120.24.187.185:8090/archives/burpzhua-bao-fang-bao-jia-jie-mi">点我查看文字教程和案例教程</a>
+<a href="http://120.24.187.185:8090/archives/burpzhua-bao-fang-bao-jia-jie-mi">点我查看视频和文字教程和案例教程</a>
 
 启动start.py文件即可：<code>python start.py</code>
 
