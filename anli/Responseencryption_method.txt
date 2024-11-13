@@ -8,3 +8,4 @@ def Responseencryption_data(flow):
         reencoded_data = response_data['reencodedData'] 
         # 将字段内容编码为Base64
         encoded_reencoded_data = base64.b64encode(reencoded_data.encode()).decode('utf-8')
+        flow.response.content=encoded_reencoded_data
