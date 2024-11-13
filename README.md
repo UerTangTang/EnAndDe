@@ -11,19 +11,21 @@
 # 使用后
 ![image](https://github.com/user-attachments/assets/21c1d760-0896-458c-a18d-76a0f4c2e67d)
 
-# 注意事项
+# 正式使用
 
 启动start.py文件即可：python start.py
 但是，在
-![image](https://github.com/user-attachments/assets/f1c0094b-32e9-4426-89aa-fe5c9c108091)
-
-
+![image](https://github.com/user-attachments/assets/591e2fdf-69b9-4b02-81fe-f057a6e6480e)
 
 
 
 四个输入框代表的是请求、响应的加解密方法。然后使用方法名称所表示的那样一一对应
 
-![image](https://github.com/user-attachments/assets/137cdef2-d85a-4644-bd59-1069d93ad561)
+![image](https://github.com/user-attachments/assets/1d818e9b-8981-4c81-bb21-93e0b6af62d7)
+
+方法中的返回值
+![image](https://github.com/user-attachments/assets/9a4583ca-1087-4c70-a5c4-63c05687f77b)
+
 
 
 然后打开你本地的三个端口的代理，即可点击本UI的一键启动按钮即可
